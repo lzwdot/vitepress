@@ -1,0 +1,52 @@
+{
+  "name": "vitepress",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "npm run gen && vitepress build",
+    "preview": "vitepress preview",
+    "gen": "node .vitepress/gen.js",
+    "prepare": "husky install",
+    "lint": "lint-staged"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/markdown-it-container": "^2.0.9",
+    "@types/node": "^20.10.6",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "glob": "^10.3.10",
+    "gray-matter": "^4.0.3",
+    "husky": "^8.0.3",
+    "js-yaml": "^4.1.0",
+    "lint-staged": "^15.2.0",
+    "markdown-it": "^14.0.0",
+    "markdown-it-container": "^4.0.0",
+    "postcss": "^8.4.33",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "sass": "^1.69.7",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vitepress": "^1.0.0-rc.41"
+  },
+  "lint-staged": {
+    "./**/*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix --cache",
+      "prettier --write --cache"
+    ],
+    "./**/*.{css,scss,md}": [
+      "prettier --write --cache"
+    ]
+  }
+}
