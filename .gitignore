@@ -4,6 +4,7 @@
 # Dir
 cache
 dist
+temp
 
 # File
 /.eslintcache

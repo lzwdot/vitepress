@@ -3,7 +3,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "Node",
-    "module": "ES6",
+    "module": "ESNext",
     "allowJs": true,
     "strict": true,
     "jsx": "preserve",

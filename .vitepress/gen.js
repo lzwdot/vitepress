@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 const { read, stringify } = matter;
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 // 全局定义
+const srcDir = 'src';
 const docsDir = 'docs'; // docs 目录
 const postDir = 'post'; // post 目录
 
@@ -24,7 +25,6 @@ function createMd(fileType) {
 
   let dirPath = ``;
   if (fileType == postDir) {
-    matterData['title'] = 'title';
     matterData['author'] = 'author';
     dirPath = `${fileType}/${dayjs().format('YYYY/MM')}`;
   } else {
@@ -35,7 +35,7 @@ function createMd(fileType) {
     mkdirSync(dirPath, { recursive: true });
   }
   //创建 md 文件
-  const content = matter.stringify('', matterData);
+  const content = matter.stringify('# [标题]', matterData);
   writeFileSync(`${dirPath}/example.md`, content);
 }
 //============创建文档 或 博客 END========================
@@ -54,7 +54,7 @@ class AutoSidebar {
 
     // sidebar
     dirNames.forEach((dirName) => {
-      sidebars[dirName] = this.walkDir(dirName);
+      sidebars[dirName] = this.walkDir(`${srcDir}/${dirName}`);
     });
     writeFileSync(
       join(_dirname, 'data/sidebar.json'),
@@ -95,19 +95,19 @@ class AutoSidebar {
               collapsed: true,
             };
             this.isSubDocs(dirName)
-              ? (sidebar[`/${dir}`] = [_obj])
+              ? (sidebar[`${dir.replace(srcDir, '')}`] = [_obj])
               : sidebar.push(_obj);
           }
           return sidebar;
         }
 
         const dirStat = statSync(dir);
-        const mdLink = `${dir}${dirStat.isFile() ? '' : '/index.md'}`;
+        const mdLink = `${dir.replace(srcDir, '')}${dirStat.isFile() ? '' : '/index.md'}`;
 
         sidebar.push({
           text: fileMatter?.data?.title,
           date: fileMatter?.data?.date,
-          link: `/${mdLink.replace('.md', '')}`,
+          link: `${mdLink.replace('.md', '')}`,
         });
         this.allPosts.push({
           title: fileMatter?.data?.title,
@@ -122,7 +122,7 @@ class AutoSidebar {
    * 文档子目录使用单独侧边栏
    */
   isSubDocs(dirName) {
-    return dirName == docsDir;
+    return dirName.includes(docsDir);
   }
 
   /**
@@ -173,6 +173,8 @@ class AutoSidebar {
       if (index >= 0) {
         const content = tokens[index + 1]?.content;
         res.data.title = content ? this.html2Escape(content) : '';
+      } else {
+        res.data.title = 'No title';
       }
     }
     // 可能没有 date

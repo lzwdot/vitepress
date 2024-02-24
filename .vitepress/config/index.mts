@@ -4,17 +4,40 @@ import locales from './locales.js';
 import markdown from './markdown.js';
 import sidebarData from './../data/sidebar.json';
 
-const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress/'
+const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress/';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  srcDir: './src',
   base: baseUrl,
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: `${baseUrl}logo.svg` }]],
+  cleanUrls: true,
+  head: [
+    [
+      'link',
+      { rel: 'icon', type: 'image/svg+xml', href: `${baseUrl}logo.svg` },
+    ],
+  ],
+  rewrites: {
+    'page/feedback.md': 'feedback.md',
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.svg',
     nav: [
-      { text: locales.vars['post'], link: '/post/README', activeMatch: '/post/' },
-      { text: locales.vars['docs'], link: '/docs/README', activeMatch: '/docs/' },
+      {
+        text: locales.vars['post'],
+        link: '/post/README',
+        activeMatch: '/post',
+      },
+      {
+        text: locales.vars['docs'],
+        link: '/docs/README',
+        activeMatch: '/docs',
+      },
+      {
+        text: locales.vars['feedback'],
+        link: '/feedback',
+        activeMatch: '/feedback',
+      },
     ],
 
     sidebar: {
@@ -22,11 +45,13 @@ export default defineConfig({
       '/post/': [...sidebarData['post']],
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/lzwdot/vitepress' }],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/lzwdot/vitepress' },
+    ],
     search: {
-      provider: 'local',
+      provider: 'algolia',
       options: {
-        ...locales.search.local,
+        ...locales.search.algolia,
       },
     },
     ...locales.themeConfig,
@@ -34,6 +59,9 @@ export default defineConfig({
   markdown,
   vite: {
     plugins: [vueJsx()],
+  },
+  sitemap: {
+    hostname: 'https://jslang.cn',
   },
   ...locales.config,
 });

@@ -4,7 +4,7 @@ export default {
   vars: {
     post: '博文',
     docs: '文档',
-    page: '页面',
+    feedback: '反馈',
   },
   config: {
     lang: 'zh-Hans',
@@ -72,9 +72,9 @@ export default {
       },
     } satisfies DefaultTheme.LocalSearchOptions,
     algolia: {
-      appId: '',
-      apiKey: '',
-      indexName: '',
+      appId: 'TKXQSE9A7A',
+      apiKey: 'af2fc9c5e145db634205383b2a8e4cb8',
+      indexName: 'jslang',
       placeholder: '搜索文档',
       translations: {
         button: {

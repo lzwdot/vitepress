@@ -1,0 +1,29 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+@config "./../../../.tailwindrc.cjs";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vp-sidebar-width: 250px;
+  --vp-layout-max-width: 1200px;
+}
+.text {
+  font-size: 0.8rem !important;
+}
+.aside {
+  padding-left: 0 !important;
+  &,
+  & * {
+    font-size: 0.8rem !important;
+    max-width: 150px !important;
+  }
+}
+.VPHome {
+  .container {
+    max-width: calc(var(--vp-layout-max-width) - 64px) !important;
+  }
+}
