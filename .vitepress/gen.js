@@ -10,12 +10,29 @@ const { read, stringify } = matter;
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 // 全局定义
 const srcDir = 'src';
-const docsDir = 'docs'; // docs 目录
+const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
+
+// 修改内容
+const files = sync('src/note/css-layout/*');
+files.forEach((file) => {
+  const state = statSync(file);
+  if (state.isFile() && !file.includes('README')) {
+    const res = read(file);
+    if (res.data?.title) {
+      writeFileSync(
+        file,
+        stringify(`# ${res.data.title} \n ${res.content}`, {
+          date: `${res.data.date}`,
+        }),
+      );
+    }
+  }
+});
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
-if (new RegExp(`^${docsDir}|${postDir}+$`).test(fileType)) {
+if (new RegExp(`^${noteDir}|${postDir}+$`).test(fileType)) {
   createMd(fileType);
 }
 function createMd(fileType) {
@@ -35,7 +52,7 @@ function createMd(fileType) {
     mkdirSync(dirPath, { recursive: true });
   }
   //创建 md 文件
-  const content = matter.stringify('# [标题]', matterData);
+  const content = stringify('# [标题]', matterData);
   writeFileSync(`${dirPath}/example.md`, content);
 }
 //============创建文档 或 博客 END========================
@@ -70,7 +87,7 @@ class AutoSidebar {
    * 递归目录
    */
   walkDir(dirName) {
-    const sidebar = this.isSubDocs(dirName) ? {} : [];
+    const sidebar = this.isSubNote(dirName) ? {} : [];
 
     if (this.excludePath(dirName)) {
       return sidebar;
@@ -86,15 +103,15 @@ class AutoSidebar {
         }
 
         const fileMatter = this.getMatter(dir);
-        if (this.canWalk(dir) || this.isSubDocs(dirName)) {
+        if (this.canWalk(dir) || this.isSubNote(dirName)) {
           const items = this.walkDir(dir);
           if (items && items.length) {
             const _obj = {
               text: fileMatter?.data?.title,
               items: items,
-              collapsed: true,
+              collapsed: this.isPostPath(dirName),
             };
-            this.isSubDocs(dirName)
+            this.isSubNote(dirName)
               ? (sidebar[`${dir.replace(srcDir, '')}`] = [_obj])
               : sidebar.push(_obj);
           }
@@ -103,17 +120,13 @@ class AutoSidebar {
 
         const dirStat = statSync(dir);
         const mdLink = `${dir.replace(srcDir, '')}${dirStat.isFile() ? '' : '/index.md'}`;
-
-        sidebar.push({
+        const sItem = {
           text: fileMatter?.data?.title,
           date: fileMatter?.data?.date,
           link: `${mdLink.replace('.md', '')}`,
-        });
-        this.allPosts.push({
-          title: fileMatter?.data?.title,
-          date: fileMatter?.data?.date,
-          url: mdLink.replace('.md', ''),
-        });
+        };
+        sidebar.push(sItem);
+        this.allPosts.push(sItem);
       });
     return sidebar;
   }
@@ -121,8 +134,15 @@ class AutoSidebar {
   /**
    * 文档子目录使用单独侧边栏
    */
-  isSubDocs(dirName) {
-    return dirName.includes(docsDir);
+  isSubNote(dirName) {
+    return dirName.endsWith(noteDir);
+  }
+
+  /**
+   * 是否 post 目录
+   */
+  isPostPath(dirName) {
+    return dirName.includes(`/${postDir}`);
   }
 
   /**
@@ -234,11 +254,11 @@ class AutoSidebar {
       b = matterB?.data?.date;
     }
 
-    if (dirName.startsWith(postDir)) {
+    if (this.isPostPath(dirName)) {
       return b > a ? 1 : -1;
     } else {
       return a > b ? 1 : -1;
     }
   }
 }
-new AutoSidebar([postDir, docsDir]);
+new AutoSidebar([postDir, noteDir]);

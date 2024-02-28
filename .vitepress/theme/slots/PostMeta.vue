@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import dayjs from 'dayjs';
-import { data as authors } from './author.data.js';
+import { data as authors } from './../../data/load/author.data.ts';
 
 const { frontmatter: post } = useData();
 const author = computed(() => authors[post.value.author]);

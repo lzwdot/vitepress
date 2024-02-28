@@ -5,3 +5,9 @@ declare module '*.vue' {
   const component: DefineComponent;
   export default component;
 }
+
+interface ArchiveItem {
+  date?: string;
+  text?: string;
+  link?: string;
+}

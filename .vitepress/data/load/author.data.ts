@@ -5,10 +5,7 @@ import path from 'path';
 export default {
   async load() {
     return await yaml.load(
-      fs.readFileSync(
-        path.join(__dirname, './../../../data/', 'index.yml'),
-        'utf8',
-      ),
+      fs.readFileSync(path.join(__dirname, './../', 'author.yml'), 'utf8'),
     );
   },
 };

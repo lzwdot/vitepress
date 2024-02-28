@@ -6,6 +6,6 @@ next: false
 editLink: false
 ---
 
-# 文档
+# 笔记
 
-<DocsArchive/>
+<NoteArchive/>

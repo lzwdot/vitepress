@@ -3,7 +3,7 @@ import { type DefaultTheme, type LocaleSpecificConfig } from 'vitepress';
 export default {
   vars: {
     post: '博文',
-    docs: '文档',
+    note: '笔记',
     feedback: '反馈',
   },
   config: {

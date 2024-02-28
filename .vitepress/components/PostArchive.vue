@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useData } from 'vitepress';
+import { useData, DefaultTheme } from 'vitepress';
 import dayjs from 'dayjs';
-import sidebarData from './../data/sidebar.json';
-
-interface Post {
-  text?: string;
-  date?: string;
-  link?: string;
-}
+import { data as sidebars } from './../data/load/sidebar.data.ts';
 
 const { site } = useData();
-const posts = computed(() =>
-  sidebarData['post'].map((year) => {
-    const items: Post[] = [];
-    if (year.items.length) {
-      year.items.map((month) => items.push(...month.items));
+const data = computed(() =>
+  sidebars['post'].map((year: DefaultTheme.SidebarItem) => {
+    const items: ArchiveItem[] = [];
+    if (year.items && year.items.length) {
+      year.items.map((month: DefaultTheme.SidebarItem) => {
+        if (month.items) items.push(...month.items);
+      });
     }
 
     return {
@@ -27,9 +23,9 @@ const posts = computed(() =>
 </script>
 
 <template>
-  <section v-for="post in posts" :key="post.text">
+  <section v-for="post in data" :key="post.text">
     <h2 class="text-center">{{ post.text }}</h2>
-    <ul class="ml-5 text-left">
+    <ul>
       <li v-for="item in post.items" :key="item.link" class="list-[square]">
         <a :href="site.base.slice(0, -1) + item.link">
           {{ item.text }}

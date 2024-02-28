@@ -29,9 +29,9 @@ export default defineConfig({
         activeMatch: '/post',
       },
       {
-        text: locales.vars['docs'],
-        link: '/docs/README',
-        activeMatch: '/docs',
+        text: locales.vars['note'],
+        link: '/note/README',
+        activeMatch: '/note',
       },
       {
         text: locales.vars['feedback'],
@@ -41,7 +41,7 @@ export default defineConfig({
     ],
 
     sidebar: {
-      ...sidebarData['docs'],
+      ...sidebarData['note'],
       '/post/': [...sidebarData['post']],
     },
 
