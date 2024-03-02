@@ -4,7 +4,7 @@ import { useRouter as vUseRouter } from 'vue-router';
 import { useData } from 'vitepress';
 
 const vRouter = vUseRouter();
-const cannyRoute = vRouter.resolve({ name: 'cannyWidget' });
+const cannyRoute = vRouter?.resolve({ name: 'cannyWidget' });
 const isLoaded = ref(false);
 const { isDark, site, title } = useData();
 const BoardToken = '5f064f41-648c-2d91-acd2-cfef5ee1e045';
@@ -15,7 +15,15 @@ watch(isDark, () => {
   });
 });
 
+onMounted(() => {
+  loadSdk();
+  reRender();
+
+  document.title = title.value.replace('404', '反馈');
+});
+
 function reRender() {
+  isLoaded.value = false;
   Canny('render', {
     boardToken: BoardToken,
     basePath: cannyRoute.path, // See step 2
@@ -51,12 +59,6 @@ function loadSdk() {
     }
   })(window, document, 'canny-jssdk', 'script');
 }
-onMounted(() => {
-  loadSdk();
-  reRender();
-
-  document.title = title.value.replace('404', '反馈');
-});
 </script>
 
 <template>

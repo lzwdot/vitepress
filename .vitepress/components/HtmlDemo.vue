@@ -9,7 +9,7 @@ const codeRef = ref<HTMLElement>();
 const iframeRef = ref<HTMLIFrameElement>();
 
 function openWin() {
-  const win = window.open('');
+  const win = window?.open('');
   if (win) {
     win.focus();
 

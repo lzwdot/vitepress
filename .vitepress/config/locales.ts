@@ -9,7 +9,7 @@ export default {
   config: {
     lang: 'zh-Hans',
     title: 'JS语言',
-    description: '记录和分享 Web 技术',
+    description: '互联网 Web 技术',
   } satisfies LocaleSpecificConfig,
 
   themeConfig: {

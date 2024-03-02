@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useData, useRoute } from 'vitepress';
 import dayjs from 'dayjs';
@@ -14,13 +14,18 @@ const data = computed(() => {
     items.push(...notes[path.value][0].items);
   } else {
     for (let key in notes) {
-      const note = notes[key][0];
-      const last = Array.isArray(note.items)
-        ? note.items[note.items.length - 1]
-        : {};
+      const note = notes[key]?.[0] || notes[key];
+
+      let last = {},
+        first = {};
+      if (Array.isArray(note?.items)) {
+        first = note.items[0];
+        last = note.items[note.items.length - 1];
+      }
+
       items.push({
-        text: note.text,
-        link: key,
+        text: note?.text,
+        link: first?.link || key,
         date: Array.isArray(last?.items)
           ? last?.items[last?.items?.length - 1]?.date
           : last?.date,
@@ -38,7 +43,7 @@ const data = computed(() => {
         {{ item.text }}
       </a>
       <span class="flex items-center justify-between" v-else>
-        <a :href="site.base.slice(0, -1) + item.link + '/README'">
+        <a :href="site.base.slice(0, -1) + item.link">
           {{ item.text }}
         </a>
         <small class="text-[var(--vp-c-text-3)]">

@@ -1,21 +1,21 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-titleTemplate: 记录和分享 Web 技术
+titleTemplate: 互联网 Web 技术
 hero:
-  tagline: '记录和分享 Web 技术'
+  tagline: '<span>JS语言</span>，互联网 Web 技术'
   actions:
     - theme: alt
       text: 博文...
       link: /post/README
     - theme: alt
-      text: 文档
-      link: /docs/README
+      text: 笔记...
+      link: /note/README
     - theme: brand
       text: 反馈
       link: /feedback
   image:
-    src: https://open.weixin.qq.com/qr/code?username=lzwdotcom
+    src: https://open.weixin.qq.com/qr/code?username=jslangcn
     alt: JS语言
 ---
 

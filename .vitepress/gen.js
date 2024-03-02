@@ -14,21 +14,21 @@ const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
 
 // 修改内容
-const files = sync('src/note/css-layout/*');
-files.forEach((file) => {
-  const state = statSync(file);
-  if (state.isFile() && !file.includes('README')) {
-    const res = read(file);
-    if (res.data?.title) {
-      writeFileSync(
-        file,
-        stringify(`# ${res.data.title} \n ${res.content}`, {
-          date: `${res.data.date}`,
-        }),
-      );
-    }
-  }
-});
+// const files = sync('src/note/css-layout/*');
+// files.forEach((file) => {
+//   const state = statSync(file);
+//   if (state.isFile() && !file.includes('README')) {
+//     const res = read(file);
+//     if (res.data?.title) {
+//       writeFileSync(
+//         file,
+//         stringify(`# ${res.data.title} \n ${res.content}`, {
+//           date: `${res.data.date}`,
+//         }),
+//       );
+//     }
+//   }
+// });
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
@@ -62,6 +62,7 @@ function createMd(fileType) {
  */
 class AutoSidebar {
   allPosts = [];
+  reWrites = {};
 
   /**
    * 自动 sidebar
@@ -71,7 +72,7 @@ class AutoSidebar {
 
     // sidebar
     dirNames.forEach((dirName) => {
-      sidebars[dirName] = this.walkDir(`${srcDir}/${dirName}`);
+      sidebars[dirName] = this.walkDir(`${srcDir}/${dirName}`, dirName);
     });
     writeFileSync(
       join(_dirname, 'data/sidebar.json'),
@@ -81,12 +82,16 @@ class AutoSidebar {
       join(_dirname, 'data/allPost.json'),
       JSON.stringify(this.allPosts),
     );
+    writeFileSync(
+      join(_dirname, 'data/reWrite.json'),
+      JSON.stringify(this.reWrites),
+    );
   }
 
   /**
    * 递归目录
    */
-  walkDir(dirName) {
+  walkDir(dirName, prePath) {
     const sidebar = this.isSubNote(dirName) ? {} : [];
 
     if (this.excludePath(dirName)) {
@@ -104,29 +109,34 @@ class AutoSidebar {
 
         const fileMatter = this.getMatter(dir);
         if (this.canWalk(dir) || this.isSubNote(dirName)) {
-          const items = this.walkDir(dir);
+          const items = this.walkDir(dir, prePath);
           if (items && items.length) {
             const _obj = {
               text: fileMatter?.data?.title,
               items: items,
               collapsed: this.isPostPath(dirName),
+              path: dir.replace(srcDir, ''),
             };
             this.isSubNote(dirName)
-              ? (sidebar[`${dir.replace(srcDir, '')}`] = [_obj])
+              ? (sidebar[dir.replace(srcDir, '')] = [_obj])
               : sidebar.push(_obj);
           }
           return sidebar;
         }
 
         const dirStat = statSync(dir);
-        const mdLink = `${dir.replace(srcDir, '')}${dirStat.isFile() ? '' : '/index.md'}`;
+        const sufStr = dirStat.isFile() ? '' : '/index.md';
+        const mdLink = `${dir.replace(srcDir, '')}${sufStr}`;
+        const reLink = `${prePath}${dir.slice(dir.lastIndexOf('/'))}${sufStr}`;
         const sItem = {
           text: fileMatter?.data?.title,
           date: fileMatter?.data?.date,
-          link: `${mdLink.replace('.md', '')}`,
+          link: `/${reLink.replace('.md', '')}`,
+          path: mdLink,
         };
         sidebar.push(sItem);
         this.allPosts.push(sItem);
+        this.reWrites[mdLink.slice(1)] = reLink;
       });
     return sidebar;
   }
@@ -135,7 +145,7 @@ class AutoSidebar {
    * 文档子目录使用单独侧边栏
    */
   isSubNote(dirName) {
-    return dirName.endsWith(noteDir);
+    return false; //dirName.endsWith(noteDir);
   }
 
   /**
@@ -146,13 +156,14 @@ class AutoSidebar {
   }
 
   /**
-   * 排除 readme | image | .json 路径
+   * 排除 readme.md | image | snippet | .json 路径
    */
   excludePath(dirPath) {
     dirPath = dirPath?.toLowerCase();
     return (
       dirPath.includes('readme.md') ||
       dirPath.includes('image') ||
+      dirPath.includes('snippet') ||
       dirPath.includes('.json')
     );
   }

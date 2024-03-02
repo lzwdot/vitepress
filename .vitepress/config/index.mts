@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress';
 import locales from './locales.js';
 import markdown from './markdown.js';
 import sidebarData from './../data/sidebar.json';
+import reWriteData from './../data/reWrite.json';
 
 const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress/';
 // https://vitepress.dev/reference/site-config
@@ -18,6 +19,7 @@ export default defineConfig({
   ],
   rewrites: {
     'page/feedback.md': 'feedback.md',
+    ...reWriteData
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -40,9 +42,8 @@ export default defineConfig({
       },
     ],
 
-    sidebar: {
-      ...sidebarData['note'],
-      '/post/': [...sidebarData['post']],
+    sidebar: {     
+      ...sidebarData
     },
 
     socialLinks: [

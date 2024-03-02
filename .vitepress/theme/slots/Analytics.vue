@@ -5,10 +5,14 @@ import { useRouter } from 'vitepress';
 
 const vRouter = vUseRouter();
 const router = useRouter();
-const cannyRoute = vRouter.resolve({ name: 'cannyWidget' });
+const cannyRoute = vRouter?.resolve({ name: 'cannyWidget' });
 
-router.onAfterRouteChanged = trackPageview;
-window.addEventListener('message', onMessage);
+onMounted(() => {
+  loadScript();
+
+  router.onAfterRouteChanged = trackPageview;
+  window.addEventListener('message', onMessage);
+});
 
 function onMessage(e: MessageEvent) {
   const { origin, data } = e;
@@ -38,8 +42,5 @@ function loadScript() {
     s.parentNode.insertBefore(hm, s);
   })();
 }
-onMounted(() => {
-  loadScript();
-});
 </script>
 <template></template>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from 'vue';
 import { useData, DefaultTheme } from 'vitepress';
 import dayjs from 'dayjs';
