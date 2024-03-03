@@ -7,7 +7,10 @@ declare module '*.vue' {
 }
 
 interface ArchiveItem {
-  date?: string;
   text?: string;
+  desc?: string;
   link?: string;
+  date?: string;
+  path?: string;
+  items?: ArchiveItem[];
 }

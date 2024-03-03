@@ -15,6 +15,9 @@
   font-size: 0.8rem !important;
 }
 .nav:has(.note) {
+  .group {
+    border-top: none;
+  }
   .group:not(:has(.has-active)) {
     display: none;
   }

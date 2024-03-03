@@ -14,15 +14,15 @@ const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
 
 // 修改内容
-// const files = sync('src/note/css-layout/*');
+// const files = sync('src/note/vuejs-use/**/**');
 // files.forEach((file) => {
 //   const state = statSync(file);
 //   if (state.isFile() && !file.includes('README')) {
 //     const res = read(file);
-//     if (res.data?.title) {
+//     if (res.data?.date) {
 //       writeFileSync(
 //         file,
-//         stringify(`# ${res.data.title} \n ${res.content}`, {
+//         stringify(`${res.content}`, {
 //           date: `${res.data.date}`,
 //         }),
 //       );
@@ -114,7 +114,7 @@ class AutoSidebar {
             const _obj = {
               text: fileMatter?.data?.title,
               items: items,
-              collapsed: this.isPostPath(dirName),
+              collapsed: dirName.endsWith(noteDir) ? null : true,
               path: dir.replace(srcDir, ''),
             };
             this.isSubNote(dirName)
