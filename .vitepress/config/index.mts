@@ -19,7 +19,7 @@ export default defineConfig({
   ],
   rewrites: {
     'page/feedback.md': 'feedback.md',
-    ...reWriteData
+    ...reWriteData,
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -41,11 +41,10 @@ export default defineConfig({
         activeMatch: '/feedback',
       },
     ],
-
-    sidebar: {     
-      ...sidebarData
+    // @ts-ignore
+    sidebar: {
+      ...sidebarData,
     },
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lzwdot/vitepress' },
     ],

@@ -52,14 +52,16 @@ onMounted(() => {
       <code>源码预览</code>
       <a @click="openWin">打开窗口</a>
     </header>
-    <iframe
-      ref="iframeRef"
-      :height="height"
-      frameBorder="0"
-      scrolling="no"
-      allowFullScreen="true"
-      width="100%"
-    ></iframe>
+    <div class="iframe-bg">
+      <iframe
+        ref="iframeRef"
+        :height="height"
+        frameBorder="0"
+        scrolling="no"
+        allowFullScreen="true"
+        width="100%"
+      ></iframe>
+    </div>
     <details class="details custom-block">
       <summary>查看源码</summary>
       <div ref="codeRef">
@@ -72,7 +74,14 @@ onMounted(() => {
 <style lang="scss" scoped>
 .htmlDemo {
   margin-bottom: 30px;
-  iframe {
+  & > * {
+    margin: 0 !important;
+  }
+
+  .iframe-bg {
+    padding: 10px;
+    min-height: 300px;
+
     /* 网格效果 */
     background-image: linear-gradient(to right, #eee 1px, transparent 1px),
       linear-gradient(to bottom, #eee 1px, transparent 1px);
@@ -83,12 +92,8 @@ onMounted(() => {
     border-left: none;
     border-top: none;
     box-sizing: border-box;
-    padding: 10px;
-    min-height: 300px;
   }
-  & > * {
-    margin: 0 !important;
-  }
+
   header {
     display: flex;
     justify-content: space-between;

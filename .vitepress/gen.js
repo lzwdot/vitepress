@@ -1,6 +1,12 @@
 import { sync } from 'glob';
 import path, { join } from 'path';
-import { writeFileSync, statSync, existsSync, mkdirSync } from 'fs';
+import {
+  writeFileSync,
+  statSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+} from 'fs';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import markdown from 'markdown-it';
@@ -14,21 +20,21 @@ const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
 
 // 修改内容
-// const files = sync('src/note/vuejs-use/**/**');
-// files.forEach((file) => {
-//   const state = statSync(file);
-//   if (state.isFile() && !file.includes('README')) {
-//     const res = read(file);
-//     if (res.data?.date) {
-//       writeFileSync(
-//         file,
-//         stringify(`${res.content}`, {
-//           date: `${res.data.date}`,
-//         }),
-//       );
-//     }
-//   }
-// });
+const files = sync('src/note/webpack-use/**/**');
+files.forEach((file) => {
+  const state = statSync(file);
+  if (state.isFile() && !file.includes('README')) {
+    const res = read(file);
+    if (res.data?.date) {
+      writeFileSync(
+        file,
+        stringify(`${res.content}`, {
+          date: `${res.data.date}`,
+        }),
+      );
+    }
+  }
+});
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
@@ -43,17 +49,19 @@ function createMd(fileType) {
   let dirPath = ``;
   if (fileType == postDir) {
     matterData['author'] = 'author';
-    dirPath = `${fileType}/${dayjs().format('YYYY/MM')}`;
+    dirPath = `${srcDir}/${fileType}/${dayjs().format('YYYY/MM')}`;
   } else {
-    dirPath = fileType;
+    dirPath = `${srcDir}/${fileType}`;
   }
 
   if (!existsSync(dirPath)) {
     mkdirSync(dirPath, { recursive: true });
   }
+
   //创建 md 文件
+  const postId = readFileSync(join(_dirname, 'data/latestId.json'), 'utf8');
   const content = stringify('# [标题]', matterData);
-  writeFileSync(`${dirPath}/example.md`, content);
+  writeFileSync(`${dirPath}/${Number(postId) + 1}.md`, content);
 }
 //============创建文档 或 博客 END========================
 
@@ -63,6 +71,7 @@ function createMd(fileType) {
 class AutoSidebar {
   allPosts = [];
   reWrites = {};
+  latestId = 0;
 
   /**
    * 自动 sidebar
@@ -85,6 +94,10 @@ class AutoSidebar {
     writeFileSync(
       join(_dirname, 'data/reWrite.json'),
       JSON.stringify(this.reWrites),
+    );
+    writeFileSync(
+      join(_dirname, 'data/latestId.json'),
+      JSON.stringify(this.latestId),
     );
   }
 
@@ -137,6 +150,10 @@ class AutoSidebar {
         sidebar.push(sItem);
         this.allPosts.push(sItem);
         this.reWrites[mdLink.slice(1)] = reLink;
+        this.latestId = Math.max(
+          this.latestId,
+          dir.slice(dir.lastIndexOf('/') + 1, dir.lastIndexOf('.')),
+        );
       });
     return sidebar;
   }
@@ -187,10 +204,7 @@ class AutoSidebar {
         res = read(readMe);
       } else {
         const dirSplit = dirPath.replaceAll('\\', '/').split('/');
-        writeFileSync(
-          readMe,
-          stringify('', { title: dirSplit[dirSplit.length - 1] }),
-        );
+        writeFileSync(readMe, stringify(`# ${dirSplit[dirSplit.length - 1]}`));
 
         res = read(readMe);
       }

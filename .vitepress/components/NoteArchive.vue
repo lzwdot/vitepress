@@ -27,11 +27,9 @@ const data = computed(() => {
       desc: note?.items
         ?.map((v: ArchiveItem) => (Array.isArray(v?.items) ? v.text : ''))
         ?.filter((v: string) => v)
-        ?.join(','),
+        ?.join('，'),
     });
   }
-
-  console.log(items);
 
   return items;
 });

@@ -30,6 +30,7 @@ export default {
 
     outline: {
       label: '页面导航',
+      level: 'deep',
     },
 
     lastUpdated: {
