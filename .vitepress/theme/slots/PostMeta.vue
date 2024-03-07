@@ -11,7 +11,7 @@ const author = computed(() => authors[post.value.author]);
 <template>
   <header class="vp-doc text-[var(--vp-c-text-3)]" v-if="author && post.date">
     <div class="flex items-center justify-between">
-      <a :href="author.url" target="_blank" class="text-blod text-lg">
+      <a :href="author.url" target="_blank" class="text-blod">
         <img
           :src="author.avatar"
           :alt="author.name"

@@ -20,21 +20,21 @@ const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
 
 // 修改内容
-const files = sync('src/note/webpack-use/**/**');
-files.forEach((file) => {
-  const state = statSync(file);
-  if (state.isFile() && !file.includes('README')) {
-    const res = read(file);
-    if (res.data?.date) {
-      writeFileSync(
-        file,
-        stringify(`${res.content}`, {
-          date: `${res.data.date}`,
-        }),
-      );
-    }
-  }
-});
+// const files = sync('src/note/algorithm/**/**');
+// files.forEach((file) => {
+//   const state = statSync(file);
+//   if (state.isFile() && !file.includes('README')) {
+//     const res = read(file);
+//     if (res.data?.date) {
+//       writeFileSync(
+//         file,
+//         stringify(`# ${res.data.title} \n ${res.content}`, {
+//           date: `${res.data.date}`,
+//         }),
+//       );
+//     }
+//   }
+// });
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
