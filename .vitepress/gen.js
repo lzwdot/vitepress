@@ -18,9 +18,10 @@ const _dirname = path.dirname(fileURLToPath(import.meta.url));
 const srcDir = 'src';
 const noteDir = 'note'; // note 目录
 const postDir = 'post'; // post 目录
+const issueDir = 'issue'; // issue 目录
 
 // 修改内容
-// const files = sync('src/note/algorithm/**/**');
+// const files = sync('src/issue/**/**');
 // files.forEach((file) => {
 //   const state = statSync(file);
 //   if (state.isFile() && !file.includes('README')) {
@@ -28,7 +29,7 @@ const postDir = 'post'; // post 目录
 //     if (res.data?.date) {
 //       writeFileSync(
 //         file,
-//         stringify(`# ${res.data.title} \n ${res.content}`, {
+//         stringify(`${res.content}`, {
 //           date: `${res.data.date}`,
 //         }),
 //       );
@@ -127,7 +128,7 @@ class AutoSidebar {
             const _obj = {
               text: fileMatter?.data?.title,
               items: items,
-              collapsed: dirName.endsWith(noteDir) ? null : true,
+              collapsed: this.isPostPath(dirName) ? true : null,
               path: dir.replace(srcDir, ''),
             };
             this.isSubNote(dirName)
@@ -286,4 +287,4 @@ class AutoSidebar {
     }
   }
 }
-new AutoSidebar([postDir, noteDir]);
+new AutoSidebar([postDir, noteDir, issueDir]);

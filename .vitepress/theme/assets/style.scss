@@ -14,7 +14,8 @@
 .text {
   font-size: 0.8rem !important;
 }
-.nav:has(.note) {
+.nav:has(.note),
+.nav:has(.issue) {
   .group {
     border-top: none;
   }

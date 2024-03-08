@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useData, DefaultTheme } from 'vitepress';
 import dayjs from 'dayjs';
 import { data as sidebars } from './../data/load/sidebar.data.ts';
 
-const { site } = useData();
+const base = ref('');
 const data = computed(() =>
   sidebars['post'].map((year: DefaultTheme.SidebarItem) => {
     const items: ArchiveItem[] = [];
@@ -20,6 +20,9 @@ const data = computed(() =>
     };
   }),
 );
+onMounted(() => {
+  base.value = useData().site.value.base;
+});
 </script>
 
 <template>
@@ -27,7 +30,7 @@ const data = computed(() =>
     <h2 class="text-center">{{ post.text }}</h2>
     <ul>
       <li v-for="item in post.items" :key="item.link" class="list-[square]">
-        <a :href="site.base.slice(0, -1) + item.link">
+        <a :href="base.slice(0, -1) + item.link">
           {{ item.text }}
         </a>
         <span class="text-[var(--vp-c-text-3)]">

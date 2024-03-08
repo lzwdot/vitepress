@@ -21,4 +21,7 @@ export default {
       },
     });
   },
+  image: {
+    lazyLoading: true,
+  },
 } satisfies MarkdownOptions;

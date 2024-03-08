@@ -4,6 +4,7 @@ export default {
   vars: {
     post: '博文',
     note: '笔记',
+    issue: '问题',
     feedback: '反馈',
   },
   config: {

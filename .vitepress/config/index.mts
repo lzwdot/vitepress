@@ -16,6 +16,14 @@ export default defineConfig({
       'link',
       { rel: 'icon', type: 'image/svg+xml', href: `${baseUrl}logo.svg` },
     ],
+    [
+      'link',
+      {
+        rel: 'preconnect',
+        crossorigin: '',
+        href: `https://${locales.search.algolia.appId}-dsn.algolia.net`,
+      },
+    ],
   ],
   rewrites: {
     'page/feedback.md': 'feedback.md',
@@ -34,6 +42,11 @@ export default defineConfig({
         text: locales.vars['note'],
         link: '/note/README',
         activeMatch: '/note',
+      },
+      {
+        text: locales.vars['issue'],
+        link: '/issue/README',
+        activeMatch: '/issue',
       },
       {
         text: locales.vars['feedback'],
