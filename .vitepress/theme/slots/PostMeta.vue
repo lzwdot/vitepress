@@ -9,7 +9,7 @@ const author = computed(() => authors[post.value.author]);
 </script>
 
 <template>
-  <header class="vp-doc text-[var(--vp-c-text-3)]" v-if="author && post.date">
+  <section class="vp-doc text-[var(--vp-c-text-3)]" v-if="author && post.date">
     <div class="flex items-center justify-between">
       <a :href="author.url" target="_blank" class="text-blod">
         <img
@@ -25,5 +25,5 @@ const author = computed(() => authors[post.value.author]);
       </small>
     </div>
     <small>{{ author.desc }} </small>
-  </header>
+  </section>
 </template>

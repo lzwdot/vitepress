@@ -8,6 +8,7 @@ import SidebarTitle from './slots/SidebarTitle.vue';
 import LatestPost from './slots/LatestPost.vue';
 import NotFound from './slots/NotFound.vue';
 import Analytics from './slots/Analytics.vue';
+import BreadCrumb from './slots/BreadCrumb.vue';
 import './assets/style.scss';
 
 const components = import.meta.glob('./../components/*.vue');
@@ -18,7 +19,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'sidebar-nav-before': () => h(SidebarTitle),
-      'doc-before': () => h(PostMeta),
+      'doc-before': () => h('header', {}, [h(BreadCrumb), h(PostMeta)]),
       'home-hero-info-after': () => h(LatestPost),
       'not-found': () => h(NotFound),
       'layout-bottom': () => h(Analytics),

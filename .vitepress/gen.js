@@ -106,7 +106,7 @@ class AutoSidebar {
    * 递归目录
    */
   walkDir(dirName, prePath) {
-    const sidebar = this.isSubNote(dirName) ? {} : [];
+    const sidebar = [];
 
     if (this.excludePath(dirName)) {
       return sidebar;
@@ -122,18 +122,19 @@ class AutoSidebar {
         }
 
         const fileMatter = this.getMatter(dir);
-        if (this.canWalk(dir) || this.isSubNote(dirName)) {
+        if (this.canWalk(dir)) {
           const items = this.walkDir(dir, prePath);
           if (items && items.length) {
             const _obj = {
               text: fileMatter?.data?.title,
               items: items,
-              collapsed: this.isPostPath(dirName) ? true : null,
+              collapsed:
+                this.isPostPath(dirName) || !this.isSubPath(dirName)
+                  ? true
+                  : null,
               path: dir.replace(srcDir, ''),
             };
-            this.isSubNote(dirName)
-              ? (sidebar[dir.replace(srcDir, '')] = [_obj])
-              : sidebar.push(_obj);
+            sidebar.push(_obj);
           }
           return sidebar;
         }
@@ -160,10 +161,10 @@ class AutoSidebar {
   }
 
   /**
-   * 文档子目录使用单独侧边栏
+   * 是否二级子目录
    */
-  isSubNote(dirName) {
-    return false; //dirName.endsWith(noteDir);
+  isSubPath(dirName) {
+    return dirName.endsWith(noteDir) || dirName.endsWith(issueDir);
   }
 
   /**

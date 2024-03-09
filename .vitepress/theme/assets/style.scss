@@ -14,8 +14,7 @@
 .text {
   font-size: 0.8rem !important;
 }
-.nav:has(.note),
-.nav:has(.issue) {
+.nav:not(:has(.post)) {
   .group {
     border-top: none;
   }
