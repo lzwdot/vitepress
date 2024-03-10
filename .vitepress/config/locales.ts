@@ -4,13 +4,13 @@ export default {
   vars: {
     post: '博文',
     note: '笔记',
-    issue: '问题',
+    issue: '真题',
     feedback: '反馈',
+    docusaurus: 'Docusaurus归档',
   },
   config: {
     lang: 'zh-Hans',
-    title: 'JS语言',
-    description: '互联网 Web 技术',
+    title: '前端大刘',
   } satisfies LocaleSpecificConfig,
 
   themeConfig: {
@@ -21,7 +21,7 @@ export default {
 
     footer: {
       message: '基于 MIT 许可发布',
-      copyright: `Copyright © ${new Date().getFullYear()}-present JsLang.`,
+      copyright: `Copyright © ${new Date().getFullYear()}-present Lzw.`,
     },
 
     docFooter: {
@@ -74,9 +74,9 @@ export default {
       },
     } satisfies DefaultTheme.LocalSearchOptions,
     algolia: {
-      appId: 'TKXQSE9A7A',
-      apiKey: 'af2fc9c5e145db634205383b2a8e4cb8',
-      indexName: 'jslang',
+      appId: 'ZG54CLJP5I',
+      apiKey: 'ec33706e39f77b9358d60b9dc1dc2916',
+      indexName: 'lzwdot',
       placeholder: '搜索文档',
       translations: {
         button: {

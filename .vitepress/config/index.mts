@@ -53,6 +53,10 @@ export default defineConfig({
         link: '/feedback',
         activeMatch: '/feedback',
       },
+      {
+        text: locales.vars['docusaurus'],
+        link: 'https://lzwdot.github.io/docusaurus/'
+      },
     ],
     // @ts-ignore
     sidebar: {
@@ -74,7 +78,7 @@ export default defineConfig({
     plugins: [vueJsx()],
   },
   sitemap: {
-    hostname: 'https://jslang.cn',
+    hostname: 'https://lzwdot.com',
   },
   ...locales.config,
 });
