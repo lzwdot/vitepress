@@ -15,8 +15,8 @@ export default {
 
   themeConfig: {
     editLink: {
-      pattern: 'https://github.com/lzwdot/vitepress',
-      text: '在 GitHub 上编辑此页面',
+      pattern: '/feedback',
+      text: '问题反馈',
     },
 
     footer: {

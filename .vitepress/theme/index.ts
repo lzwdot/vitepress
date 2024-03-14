@@ -9,6 +9,7 @@ import LatestPost from './slots/LatestPost.vue';
 import NotFound from './slots/NotFound.vue';
 import Analytics from './slots/Analytics.vue';
 import BreadCrumb from './slots/BreadCrumb.vue';
+import CannyWidget from './slots/CannyWidget.vue';
 import './assets/style.scss';
 
 const components = import.meta.glob('./../components/*.vue');
@@ -27,6 +28,7 @@ export default {
   },
   async enhanceApp({ app, router, siteData }) {
     // https://vitepress.dev/guide/extending-default-theme#registering-global-components
+    app.component('CannyWidget', CannyWidget);
     for (const path in components) {
       const comp = await components[path]();
       const _comp = comp as DefineComponent;

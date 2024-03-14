@@ -6,6 +6,7 @@ import sidebarData from './../data/sidebar.json';
 import reWriteData from './../data/reWrite.json';
 
 const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress/';
+const gTagId = 'G-CY2Z4947PL';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   srcDir: './src',
@@ -24,6 +25,21 @@ export default defineConfig({
         href: `https://${locales.search.algolia.appId}-dsn.algolia.net`,
       },
     ],
+    [
+      'script',
+      {
+        async: '',
+        src: `https://www.googletagmanager.com/gtag/js?id=${gTagId}`,
+      },
+    ],
+    // [
+    //   'script',
+    //   {},
+    //   `window.dataLayer = window.dataLayer || [];
+    //   function gtag(){dataLayer.push(arguments);}
+    //   gtag('js', new Date());
+    //   gtag('config', '${gTagId}');`,
+    // ],
   ],
   rewrites: {
     'page/feedback.md': 'feedback.md',
@@ -55,7 +71,7 @@ export default defineConfig({
       },
       {
         text: locales.vars['docusaurus'],
-        link: 'https://lzwdot.github.io/docusaurus/'
+        link: 'https://lzwdot.github.io/docusaurus/',
       },
     ],
     // @ts-ignore
