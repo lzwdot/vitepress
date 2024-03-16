@@ -4,25 +4,22 @@ import CannyWidget from './../slots/CannyWidget.vue';
 function vRouter(base: string) {
   const routes = [
     {
-      path: `${base}`,
-      component: CannyWidget,
+      path: base,
       children: [
         {
           name: 'cannyWidget',
-          path: `${base}feedback`,
+          path: `feedback`,
           component: CannyWidget,
         },
-        { path: `${base}feedback/:chapters*`, component: CannyWidget },
+        { path: `feedback/:chapters*`, component: CannyWidget },
       ],
     },
   ];
 
-  const router = createRouter({
+  return createRouter({
     history: createWebHistory(),
     routes,
   });
-
-  return router;
 }
 
 export default vRouter;
