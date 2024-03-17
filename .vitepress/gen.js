@@ -37,23 +37,23 @@ files.forEach(async (file) => {
   //   }
   // }
   // 图片转 web
-  // if (/.*.\.(jpg|png|gif|jpeg)$/.test(file)) {
-  //   const _file = join(_dirname, './..', file);
-  //   await sharp(_file)
-  //     .toFile(_file.substring(0, _file.lastIndexOf('.')) + '.webp')
-  //     .then((res) => {
-  //       unlinkSync(_file);
-  //       console.log(file, 'Yes');
-  //     })
-  //     .catch((err) => {
-  //       console.log(file, err);
-  //     });
-  // }
+  if (/.*.\.(jpg|png|gif|jpeg)$/.test(file)) {
+    const _file = join(_dirname, './..', file);
+    await sharp(_file)
+      .toFile(_file.substring(0, _file.lastIndexOf('.')) + '.webp')
+      .then((res) => {
+        unlinkSync(_file);
+        console.log(file, 'Yes');
+      })
+      .catch((err) => {
+        console.log(file, err);
+      });
+  }
 });
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
-if (new RegExp(`^${noteDir}|${postDir}+$`).test(fileType)) {
+if (new RegExp(`^${noteDir}|${postDir}|${issueDir}+$`).test(fileType)) {
   createMd(fileType);
 }
 function createMd(fileType) {

@@ -25,13 +25,13 @@ export default defineConfig({
         href: `https://${locales.search.algolia.appId}-dsn.algolia.net`,
       },
     ],
-    [
-      'script',
-      {
-        async: '',
-        src: `https://www.googletagmanager.com/gtag/js?id=${gTagId}`,
-      },
-    ],
+    // [
+    //   'script',
+    //   {
+    //     async: '',
+    //     src: `https://www.googletagmanager.com/gtag/js?id=${gTagId}`,
+    //   },
+    // ],
     // [
     //   'script',
     //   {},

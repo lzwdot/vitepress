@@ -80,7 +80,7 @@ onMounted(() => {
 
   .iframe-bg {
     padding: 10px;
-    min-height: 300px;
+    min-height: 150px;
 
     /* 网格效果 */
     background-image: linear-gradient(to right, #eee 1px, transparent 1px),
