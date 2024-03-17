@@ -1,17 +1,18 @@
 import { sync } from 'glob';
 import path, { join } from 'path';
+import { fileURLToPath } from 'url';
+import matter from 'gray-matter';
+import markdown from 'markdown-it';
+import dayjs from 'dayjs';
+import sharp from 'sharp';
 import {
   writeFileSync,
   statSync,
   existsSync,
   mkdirSync,
   readFileSync,
+  unlinkSync,
 } from 'fs';
-import { fileURLToPath } from 'url';
-import matter from 'gray-matter';
-import markdown from 'markdown-it';
-import dayjs from 'dayjs';
-
 const { read, stringify } = matter;
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 // 全局定义
@@ -21,21 +22,34 @@ const postDir = 'post'; // post 目录
 const issueDir = 'issue'; // issue 目录
 
 // 修改内容
-// const files = sync('src/issue/**/**');
-// files.forEach((file) => {
-//   const state = statSync(file);
-//   if (state.isFile() && !file.includes('README')) {
-//     const res = read(file);
-//     if (res.data?.date) {
-//       writeFileSync(
-//         file,
-//         stringify(`${res.content}`, {
-//           date: `${res.data.date}`,
-//         }),
-//       );
-//     }
-//   }
-// });
+const files = sync('src/**/**');
+files.forEach(async (file) => {
+  // const state = statSync(file);
+  // if (state.isFile() && !file.includes('README')) {
+  //   const res = read(file);
+  //   if (res.data?.date) {
+  //     writeFileSync(
+  //       file,
+  //       stringify(`${res.content}`, {
+  //         date: `${res.data.date}`,
+  //       }),
+  //     );
+  //   }
+  // }
+  // 图片转 web
+  // if (/.*.\.(jpg|png|gif|jpeg)$/.test(file)) {
+  //   const _file = join(_dirname, './..', file);
+  //   await sharp(_file)
+  //     .toFile(_file.substring(0, _file.lastIndexOf('.')) + '.webp')
+  //     .then((res) => {
+  //       unlinkSync(_file);
+  //       console.log(file, 'Yes');
+  //     })
+  //     .catch((err) => {
+  //       console.log(file, err);
+  //     });
+  // }
+});
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
@@ -64,6 +78,7 @@ function createMd(fileType) {
   const content = stringify('# [标题]', matterData);
   writeFileSync(`${dirPath}/${Number(postId) + 1}.md`, content);
 }
+
 //============创建文档 或 博客 END========================
 
 /**
