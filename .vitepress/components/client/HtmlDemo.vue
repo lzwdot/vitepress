@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useData } from 'vitepress';
 
-const { title } = useData();
+const { site } = useData();
 const height = ref(0);
 const code = ref('');
 const codeRef = ref<HTMLElement>();
@@ -17,7 +17,7 @@ function openWin() {
     win.document.write(
       `<style>html,body{margin:0;padding:0}</style>${code.value}`,
     );
-    win.document.title = `代码在线运行 | ${title.value}`;
+    win.document.title = `代码在线运行 | ${site.value.title}`;
 
     win.document.close();
   }
