@@ -5,7 +5,7 @@ import markdown from './markdown.js';
 import sidebarData from './../data/sidebar.json';
 import reWriteData from './../data/reWrite.json';
 
-const baseUrl = process.env.CF_PAGES ? '/' : '/';
+const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress';
 const gTagId = 'G-CY2Z4947PL';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
