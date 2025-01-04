@@ -4,22 +4,21 @@ import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import markdown from 'markdown-it';
 import dayjs from 'dayjs';
-import sharp from 'sharp';
+// import sharp from 'sharp';
 import {
   writeFileSync,
   statSync,
   existsSync,
   mkdirSync,
   readFileSync,
-  unlinkSync,
+  // unlinkSync,
 } from 'fs';
 const { read, stringify } = matter;
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 // 全局定义
 const srcDir = 'src';
-const noteDir = 'note'; // note 目录
+const docsDir = 'docs'; // docs 目录
 const postDir = 'post'; // post 目录
-const issueDir = 'issue'; // issue 目录
 
 // 修改内容
 const files = sync('src/**/**');
@@ -37,23 +36,24 @@ files.forEach(async (file) => {
   //   }
   // }
   // 图片转 web
-  if (/.*.\.(jpg|png|gif|jpeg)$/.test(file)) {
-    const _file = join(_dirname, './..', file);
-    await sharp(_file)
-      .toFile(_file.substring(0, _file.lastIndexOf('.')) + '.webp')
-      .then((res) => {
-        unlinkSync(_file);
-        console.log(file, 'Yes');
-      })
-      .catch((err) => {
-        console.log(file, err);
-      });
-  }
+  // if (/.*.\.(jpg|png|gif|jpeg)$/.test(file)) {
+  //   const _file = join(_dirname, './..', file);
+  //   await sharp(_file)
+  //     .toFile(_file.substring(0, _file.lastIndexOf('.')) + '.webp')
+  //     .then((res) => {
+  //       unlinkSync(_file);
+  //       console.log(file, 'Yes');
+  //     })
+  //     .catch((err) => {
+  //       console.log(file, err);
+  //     });
+  // }
+  console.log(file);
 });
 
 //============创建文档 或 博客========================
 const fileType = process.argv.slice(2)[0];
-if (new RegExp(`^${noteDir}|${postDir}|${issueDir}+$`).test(fileType)) {
+if (new RegExp(`^${docsDir}|${postDir}+$`).test(fileType)) {
   createMd(fileType);
 }
 function createMd(fileType) {
@@ -179,7 +179,7 @@ class AutoSidebar {
    * 是否二级子目录
    */
   isSubPath(dirName) {
-    return dirName.endsWith(noteDir) || dirName.endsWith(issueDir);
+    return dirName.endsWith(docsDir);
   }
 
   /**
@@ -261,6 +261,7 @@ class AutoSidebar {
       const dirs = sync(`${dirPath}/*`);
       dirs.forEach((v) => {
         if (this.excludePath(v) || v.includes(indexMd)) {
+          res = false;
         } else {
           res = true;
         }
@@ -303,4 +304,4 @@ class AutoSidebar {
     }
   }
 }
-new AutoSidebar([postDir, noteDir, issueDir]);
+new AutoSidebar([postDir, docsDir]);

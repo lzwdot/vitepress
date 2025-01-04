@@ -1,4 +1,4 @@
-import vueJsx from '@vitejs/plugin-vue-jsx';
+// import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig } from 'vitepress';
 import locales from './locales.js';
 import markdown from './markdown.js';
@@ -6,7 +6,6 @@ import sidebarData from './../data/sidebar.json';
 import reWriteData from './../data/reWrite.json';
 
 const baseUrl = process.env.CF_PAGES ? '/' : '/vitepress/';
-const gTagId = 'G-CY2Z4947PL';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   srcDir: './src',
@@ -24,25 +23,10 @@ export default defineConfig({
         crossorigin: '',
         href: `https://${locales.search.algolia.appId}-dsn.algolia.net`,
       },
-    ],
-    // [
-    //   'script',
-    //   {
-    //     async: '',
-    //     src: `https://www.googletagmanager.com/gtag/js?id=${gTagId}`,
-    //   },
-    // ],
-    // [
-    //   'script',
-    //   {},
-    //   `window.dataLayer = window.dataLayer || [];
-    //   function gtag(){dataLayer.push(arguments);}
-    //   gtag('js', new Date());
-    //   gtag('config', '${gTagId}');`,
-    // ],
+    ]
   ],
   rewrites: {
-    'page/feedback.md': 'feedback.md',
+    'page/about.md': 'about.md',
     ...reWriteData,
   },
   themeConfig: {
@@ -55,23 +39,14 @@ export default defineConfig({
         activeMatch: '/post',
       },
       {
-        text: locales.vars['note'],
-        link: '/note/README',
-        activeMatch: '/note',
+        text: locales.vars['docs'],
+        link: '/docs/README',
+        activeMatch: '/docs',
       },
       {
-        text: locales.vars['issue'],
-        link: '/issue/README',
-        activeMatch: '/issue',
-      },
-      {
-        text: locales.vars['feedback'],
-        link: '/feedback',
-        activeMatch: '/feedback',
-      },
-      {
-        text: locales.vars['docusaurus'],
-        link: 'https://lzwdot.github.io/docusaurus/',
+        text: locales.vars['about'],
+        link: '/about',
+        activeMatch: '/about',
       },
     ],
     // @ts-ignore
@@ -91,7 +66,7 @@ export default defineConfig({
   },
   markdown,
   vite: {
-    plugins: [vueJsx()],
+    // plugins: [vueJsx()],
   },
   sitemap: {
     hostname: 'https://lzwdot.com',

@@ -2,7 +2,7 @@
  * Customize default theme styling by overriding CSS variables:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
-@config "./../../../.tailwindrc.cjs";
+@config "./../../../.tailwindrc.mjs";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

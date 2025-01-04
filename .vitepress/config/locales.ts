@@ -3,10 +3,8 @@ import { type DefaultTheme, type LocaleSpecificConfig } from 'vitepress';
 export default {
   vars: {
     post: '博文',
-    note: '笔记',
-    issue: '真题',
-    feedback: '反馈',
-    docusaurus: 'Docusaurus归档',
+    docs: '文档',
+    about: '关于',
   },
   config: {
     lang: 'zh-Hans',
@@ -15,8 +13,8 @@ export default {
 
   themeConfig: {
     editLink: {
-      pattern: '/feedback',
-      text: '问题反馈',
+      pattern: '/about',
+      text: '反馈',
     },
 
     footer: {

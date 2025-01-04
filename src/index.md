@@ -8,20 +8,17 @@ hero:
       text: 博文
       link: /post/README
     - theme: alt
-      text: 笔记
-      link: /note/README
-    - theme: alt
-      text: 真题
-      link: /issue/README
+      text: 文档
+      link: /docs/README
     - theme: brand
-      text: 反馈
-      link: /feedback
+      text: 关于
+      link: /about
   image:
     src: https://open.weixin.qq.com/qr/code?username=jslangcn
     alt: 前端大刘
 ---
 
-<style>
+<style scoped>
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
