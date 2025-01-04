@@ -14,6 +14,6 @@ hero:
       text: 关于
       link: /about
   image:
-    src: https://open.weixin.qq.com/qr/code?username=jslangcn
+    src: https://open.weixin.qq.com/qr/code?username=lzwdot
     alt: 前端大刘
 ---
