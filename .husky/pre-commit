@@ -12,6 +12,6 @@ echo "=> Executing lint loading..."
 
 npx lint-staged || {
   exit
-  echo "=> Error npm run lint"
+  echo "=> Error npx lint-staged"
   exit 1
 }

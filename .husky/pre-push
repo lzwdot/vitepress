@@ -1,0 +1,9 @@
+echo
+echo "=> Executing deploy loading..."
+
+deploy.sh || {
+  exit
+  echo "=> Error deploy.sh"
+  exit 1
+}
+
