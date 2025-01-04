@@ -17,6 +17,7 @@ function trackPageview(path: string) {
 }
 
 function loadScript() {
+  // @ts-nocheck
   const _hmt = _hmt || [];
   (function () {
     const hm = document.createElement('script');
@@ -26,3 +27,6 @@ function loadScript() {
   })();
 }
 </script>
+<template>
+  <span></span>
+</template>

@@ -1,1 +1,17 @@
-npx lint-staged
+echo
+echo "=> Executing submit repaired files..."
+
+git add . || {
+  exit
+  echo "=> Error git add ."
+  exit 1
+}
+
+echo
+echo "=> Executing lint loading..."
+
+npx lint-staged || {
+  exit
+  echo "=> Error npm run lint"
+  exit 1
+}

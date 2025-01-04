@@ -1,5 +1,5 @@
 {
-  "name": "vitepress",
+  "name": "lzwdot",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,8 @@
     "preview": "vitepress preview",
     "lint": "lint-staged",
     "prepare": "husky",
-    "gen": "node .vitepress/gen.js"
+    "deploy": "./deploy.sh",
+    "gen": "node .vitepress/gen.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

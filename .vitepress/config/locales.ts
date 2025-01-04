@@ -19,7 +19,7 @@ export default {
 
     footer: {
       message: '基于 MIT 许可发布',
-      copyright: `Copyright © ${new Date().getFullYear()}-present Lzw.`,
+      copyright: `Copyright ©2018-${new Date().getFullYear()} present Lzw.`,
     },
 
     docFooter: {

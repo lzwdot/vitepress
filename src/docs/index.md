@@ -8,4 +8,4 @@ editLink: false
 
 # 笔记
 
-<NoteArchive/>
+<DocsArchive/>

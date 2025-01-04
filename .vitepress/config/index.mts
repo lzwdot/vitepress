@@ -2,6 +2,7 @@
 import { defineConfig } from 'vitepress';
 import locales from './locales.js';
 import markdown from './markdown.js';
+import packageJson from './../../package.json';
 import sidebarData from './../data/sidebar.json';
 import reWriteData from './../data/reWrite.json';
 
@@ -35,18 +36,23 @@ export default defineConfig({
     nav: [
       {
         text: locales.vars['post'],
-        link: '/post/README',
+        link: '/post',
         activeMatch: '/post',
       },
       {
         text: locales.vars['docs'],
-        link: '/docs/README',
+        link: '/docs',
         activeMatch: '/docs',
       },
       {
-        text: locales.vars['about'],
-        link: '/about',
-        activeMatch: '/about',
+        text: packageJson.devDependencies.vitepress,
+        items: [
+          {
+            text: locales.vars['about'],
+            link: '/about',
+            activeMatch: '/about',
+          }
+        ]
       },
     ],
     // @ts-ignore

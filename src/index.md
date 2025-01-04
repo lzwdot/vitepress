@@ -2,14 +2,14 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 hero:
-  tagline: '记录和分享，每天进步一点点！'
+  tagline: '专注于互联网 web 技术分享'
   actions:
     - theme: alt
       text: 博文
-      link: /post/README
+      link: /post/
     - theme: alt
       text: 文档
-      link: /docs/README
+      link: /docs/
     - theme: brand
       text: 关于
       link: /about

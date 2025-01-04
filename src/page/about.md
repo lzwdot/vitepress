@@ -1,5 +1,6 @@
 ---
 editLink: false
+lastUpdated: false
 ---
 
 # 关于

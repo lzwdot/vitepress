@@ -48,7 +48,7 @@ files.forEach(async (file) => {
   //       console.log(file, err);
   //     });
   // }
-  console.log(file);
+  return file;
 });
 
 //============创建文档 或 博客========================
