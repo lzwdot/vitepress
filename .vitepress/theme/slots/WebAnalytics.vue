@@ -2,7 +2,7 @@
 import { defineClientComponent } from 'vitepress';
 
 const ClientComp = defineClientComponent(() => {
-  return import('./client/BdAnalytics.vue');
+  return import('./client/WebAnalytics.vue');
 });
 </script>
 

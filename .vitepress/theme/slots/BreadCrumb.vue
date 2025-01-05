@@ -1,22 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute, useData, type DefaultTheme } from 'vitepress';
+import { ref } from 'vue';
+import { useRoute, useData, type DefaultTheme, useRouter } from 'vitepress';
 import { useSidebar } from 'vitepress/theme';
 import HomeIcon from './../assets/icons/Home.vue';
 
 const { site, page, theme } = useData();
 const { path } = useRoute();
 const { hasSidebar } = useSidebar();
-const second = computed(() => {
+const router = useRouter();
+const getNavItem = (path: string) => {
   return theme.value.nav.find(
     (v: DefaultTheme.NavItemWithLink) =>
       v.activeMatch && path.includes(v.activeMatch),
   );
-}) as unknown as DefaultTheme.NavItemWithLink;
+};
+const second = ref(getNavItem(path)) as unknown as DefaultTheme.NavItemWithLink;
+router.onAfterRouteChanged = (path) => {
+  second.value = getNavItem(path);
+};
 </script>
 
 <template>
-  <nav class="mb-5 mt-[-32px] w-full" v-if="hasSidebar">
+  <nav v-if="hasSidebar" class="mb-5 mt-[-32px] w-full">
     <small>
       <ol class="list-reset flex">
         <li>

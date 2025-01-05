@@ -5,7 +5,7 @@ import DefaultTheme from 'vitepress/theme';
 import PostMeta from './slots/PostMeta.vue';
 import SidebarTitle from './slots/SidebarTitle.vue';
 import LatestPost from './slots/LatestPost.vue';
-import BdAnalytics from './slots/BdAnalytics.vue';
+import WebAnalytics from './slots/WebAnalytics.vue';
 import BreadCrumb from './slots/BreadCrumb.vue';
 import './assets/style.scss';
 
@@ -19,7 +19,7 @@ export default {
       'sidebar-nav-before': () => h(SidebarTitle),
       'doc-before': () => h('header', {}, [h(BreadCrumb), h(PostMeta)]),
       'home-hero-info-after': () => h(LatestPost),
-      'layout-bottom': () => h(BdAnalytics),
+      'layout-bottom': () => h(WebAnalytics),
     });
   },
   async enhanceApp({ app }) {

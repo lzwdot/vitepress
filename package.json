@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "npm run gen && vitepress build",
     "preview": "vitepress preview",
     "lint": "lint-staged",
     "prepare": "husky",
