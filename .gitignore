@@ -1,5 +1,5 @@
 # Dependencies
-/node_modules
+node_modules
 
 # Dir
 cache
@@ -7,4 +7,4 @@ dist
 temp
 
 # File
-/.eslintcache
+.eslintcache
