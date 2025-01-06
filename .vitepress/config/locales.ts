@@ -9,6 +9,7 @@ export default {
   config: {
     lang: 'zh-Hans',
     title: '前端大刘',
+    description: '专注于互联网 web 技术分享',
   } satisfies LocaleSpecificConfig,
 
   themeConfig: {

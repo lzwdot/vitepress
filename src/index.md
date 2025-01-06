@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: 专注于互联网 web 技术分享
 hero:
   tagline: '专注于互联网 web 技术分享'
   actions:
