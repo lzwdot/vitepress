@@ -29,8 +29,8 @@ server.registerResource(
   'greeting',
   new ResourceTemplate('greeting://{name}', { list: undefined }),
   {
-    title: '问候资源', // Display name for UI
-    description: '动态问候语生成器',
+    title: '请求资源', // Display name for UI
+    description: '动态请求生成器',
   },
   async (uri, { name }) => ({
     contents: [
