@@ -2,7 +2,7 @@
   "name": "lzwdot",
   "version": "1.0.0",
   "private": true,
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "npm run gen && vitepress build",
@@ -43,5 +43,8 @@
     "./**/*.{css,scss,md}": [
       "prettier --write --cache"
     ]
+  },
+  "dependencies": {
+    "package-lock-only": "^0.0.4"
   }
 }
