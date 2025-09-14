@@ -7,6 +7,7 @@ import SidebarTitle from './slots/SidebarTitle.vue';
 import LatestPost from './slots/LatestPost.vue';
 import WebAnalytics from './slots/WebAnalytics.vue';
 import BreadCrumb from './slots/BreadCrumb.vue';
+import './assets/tailwind.css';
 import './assets/style.scss';
 
 const components = import.meta.glob('./../components/*.vue');

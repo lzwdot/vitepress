@@ -9,13 +9,13 @@ const author = computed(() => authors[post.value.author]);
 </script>
 
 <template>
-  <section class="vp-doc text-[var(--vp-c-text-3)]" v-if="author && post.date">
+  <section v-if="author && post.date" class="vp-doc text-[var(--vp-c-text-3)]">
     <div class="flex items-center justify-between">
-      <a :href="author.url" target="_blank" class="text-blod">
+      <a :href="author.url" target="_blank" class="font-semibold">
         <img
           :src="author.avatar"
           :alt="author.name"
-          class="mr-1 inline-block w-5 rounded-full"
+          class="mr-1 inline-block! w-5 rounded-full"
         />
         {{ author.name }}
       </a>

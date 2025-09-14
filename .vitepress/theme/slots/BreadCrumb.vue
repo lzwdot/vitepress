@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRoute, useData, type DefaultTheme, useRouter } from 'vitepress';
-import { useSidebar } from 'vitepress/theme';
+import { useLayout } from 'vitepress/theme';
 import HomeIcon from './../assets/icons/Home.vue';
 
 const { site, page, theme } = useData();
 const { path } = useRoute();
-const { hasSidebar } = useSidebar();
+const { hasSidebar } = useLayout();
 const router = useRouter();
 const getNavItem = (path: string) => {
   return theme.value.nav.find(
@@ -21,7 +21,7 @@ router.onAfterRouteChanged = (path) => {
 </script>
 
 <template>
-  <nav v-if="hasSidebar" class="mb-5 mt-[-32px] w-full">
+  <nav v-if="hasSidebar" class="mt-[-32px] mb-5 w-full">
     <small>
       <ol class="list-reset flex">
         <li>
