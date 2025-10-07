@@ -1,8 +1,16 @@
-const obj = {
-  x: 10,
-  [Symbol('y')]: 20,
+export default {
+  data() {
+    return {
+      userList: [
+        { id: 1, name: 'a' },
+        { id: 2, name: 'b' },
+        { id: 3, name: 'c' },
+      ],
+    };
+  },
+  computed: {
+    userNameList() {
+      return this.userList.map((item) => item.name); // 适配器，返回用户名列表
+    },
+  },
 };
-
-console.log(Object.keys(obj)); // [ 'x' ]
-console.log(Object.getOwnPropertySymbols(obj)); // [ Symbol(y) ]
-console.log(Reflect.ownKeys(obj)); // [ 'x', Symbol(y) ]
