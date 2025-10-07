@@ -6,11 +6,19 @@
     <title>测试页面</title>
   </head>
   <body>
-    <iframe src="./iframe.html" id="iframe1"></iframe>
+    <div id="container">
+      <a href="#">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+    </div>
     <script>
-      // window.addEventListener('message', (e) => {
-      //   console.log(e.data);
-      // });
+      const container = document.getElementById('container');
+      container.addEventListener('click', (e) => {
+        if(e.target.tagName === 'A'){
+          alert(e.target.textContent)
+        }
+      });
     </script>
   </body>
 </html>
