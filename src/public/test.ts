@@ -1,11 +1,18 @@
-const user = {
-  name: '张三',
-  getName(){
-    console.log('this', this);
-    return this.name;
-  },
-};
+interface IUser{
+  buy:()=>void;
+}
 
-const proxy = new Proxy(user, {});
-user.getName(); //  User
-proxy.getName(); // Proxy
+class VipUser implements IUser{
+  buy(): void {
+    console.log('VIP用户');
+  }
+}
+
+class NormalUser implements IUser{
+  buy(): void {
+    console.log('普通用户');
+  }   
+}
+
+const vipUser = new VipUser();
+const normalUser = new NormalUser();
